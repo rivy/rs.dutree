@@ -153,7 +153,7 @@ impl Config {
         let color_dict = create_color_dict();
 
         let mut paths: Vec<PathBuf> = Vec::new();
-        if opt.free.len() == 0 {
+        if opt.free.is_empty() {
             let mut path = std::path::PathBuf::new();
             path.push(".".to_string());
             paths.push(path);
@@ -674,7 +674,7 @@ fn create_color_dict() -> HashMap<String, String> {
     let colors = env_str.split(':');
     let mut color_dict = HashMap::with_capacity(colors.size_hint().0);
     for entry in colors {
-        if entry.len() == 0 {
+        if entry.is_empty() {
             break;
         }
 
