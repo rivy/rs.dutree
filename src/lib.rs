@@ -523,7 +523,7 @@ impl<'a> Entry<'a> {
     }
 }
 
-fn fmt_bar(bytes: &Vec<u64>, max_bytes: u64, width: usize, ascii_flag: bool) -> String {
+fn fmt_bar(bytes: &[u64], max_bytes: u64, width: usize, ascii_flag: bool) -> String {
     let width = width as u64 - 2 - 5; // not including bars and percentage
 
     let mut str = String::with_capacity(width as usize);
