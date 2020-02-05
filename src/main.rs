@@ -38,27 +38,26 @@ extern crate dutree;
 
 use dutree::Config;
 use dutree::XResult::XErr;
-use dutree::XResult::XOk;
 use dutree::XResult::XExit;
+use dutree::XResult::XOk;
 use std::process;
 
 fn main() {
-
     // handle SIGPIPE
     let _signal = unsafe { signal_hook::register(signal_hook::SIGPIPE, || process::exit(0)) };
 
     // Parse arguments
     let cfg = match Config::new() {
-        XOk(cfg)  => cfg,
-        XExit     => process::exit(0),
+        XOk(cfg) => cfg,
+        XExit => process::exit(0),
         XErr(err) => {
-            eprintln!( "{}", err );
+            eprintln!("{}", err);
             process::exit(1)
         }
     };
 
     // Execution
-    dutree::run( &cfg );
+    dutree::run(&cfg);
 }
 
 // License
