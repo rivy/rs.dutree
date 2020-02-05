@@ -396,6 +396,7 @@ impl<'a> Entry<'a> {
         }
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn print_entries(
         &self,
         open_parents: Vec<bool>,
