@@ -469,7 +469,7 @@ impl<'a> Entry<'a> {
                         fmt_bar(&bytes, max_bytes, bar_width, ascii_flag),
                         fmt_size_str(entry.bytes, bytes_flag)
                     );
-                    if let Some(_) = entry.entries {
+                    if entry.entries.is_some() {
                         entry.print_entries(
                             op,
                             bytes,
