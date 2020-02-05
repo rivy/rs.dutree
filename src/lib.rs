@@ -286,6 +286,8 @@ fn try_bytes_from_path(path: &Path, usage_flag: bool) -> u64 {
                 metadata.size()
             }
         }
+        #[cfg(target_os = "windows")]
+        Ok(metadata) => 0,
         Err(err) => {
             print_io_error(path, err);
             0
@@ -625,6 +627,8 @@ fn color_from_path<'a>(path: &Path, color_dict: &'a HashMap<String, String>) -> 
         let mode = meta.st_mode();
         #[cfg(target_os = "macos")]
         let mode = meta.mode();
+        #[cfg(target_os = "windows")]
+        let mode = 0;
         if path.is_dir() {
             if mode & 0o002 != 0 {
                 // dir other writable
