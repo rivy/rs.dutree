@@ -12,7 +12,7 @@ exclude = ["test/*"]
 [dependencies]
 getopts = "0.2.21"
 regex = "1"
-signal-hook = "0.1.10"
+signal-hook = "0.1.13"
 terminal_size = "0.1.8"
 unicode-width = "0.1.1"
 unicode-segmentation = "1.2.0"
