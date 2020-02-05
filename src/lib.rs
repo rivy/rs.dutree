@@ -643,7 +643,7 @@ fn color_from_path<'a>(path: &Path, color_dict: &'a HashMap<String, String>) -> 
         }
     }
     if let Some(ext_str) = path.extension() {
-        for (key, _) in color_dict {
+        for key in color_dict.keys() {
             if &key[..2] != "*." {
                 continue;
             }
