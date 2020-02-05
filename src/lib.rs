@@ -330,7 +330,7 @@ impl<'a> Entry<'a> {
                         if cfg.exclude.iter().any(|p| entry_name == p) {
                             continue;
                         }
-                        if cfg.hiddn_flag && entry_name.starts_with(".") {
+                        if cfg.hiddn_flag && entry_name.starts_with('.') {
                             continue;
                         }
                         if cfg.no_dir_flg && path.is_dir() {
