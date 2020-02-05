@@ -173,7 +173,10 @@ impl Config {
 
         let mut depth_flag = opt.opt_present("d");
         let depth_opt = opt.opt_str("d");
-        let mut depth = depth_opt.unwrap_or("1".to_string()).parse().unwrap_or(1);
+        let mut depth = depth_opt
+            .unwrap_or_else(|| "1".to_string())
+            .parse()
+            .unwrap_or(1);
 
         let bytes_flag = opt.opt_present("b");
         let usage_flag = opt.opt_present("u");
@@ -183,7 +186,7 @@ impl Config {
 
         let mut aggr = if opt.opt_present("a") {
             let aggr_opt = opt.opt_str("a");
-            let aggr_val = aggr_opt.unwrap_or("1M".to_string());
+            let aggr_val = aggr_opt.unwrap_or_else(|| "1M".to_string());
 
             if !Regex::new(r"^\d+\D?$").unwrap().is_match(aggr_val.as_str()) {
                 return XErr(format!("invalid argument '{}'", aggr_val));
@@ -246,7 +249,7 @@ fn file_name_from_path(path: &Path) -> String {
 
     abspath
         .file_name()
-        .unwrap_or(std::ffi::OsStr::new("/")) // '/' has no filename
+        .unwrap_or_else(|| std::ffi::OsStr::new("/")) // '/' has no filename
         .to_str()
         .unwrap_or("[invalid name]")
         .to_string()
@@ -670,7 +673,7 @@ fn print_usage(program: &str, opts: &Options) {
 }
 
 fn create_color_dict() -> HashMap<String, String> {
-    let env_str = env::var("LS_COLORS").unwrap_or("".to_string());
+    let env_str = env::var("LS_COLORS").unwrap_or_else(|_| "".to_string());
     let colors = env_str.split(':');
     let mut color_dict = HashMap::with_capacity(colors.size_hint().0);
     for entry in colors {
