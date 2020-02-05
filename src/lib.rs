@@ -607,8 +607,8 @@ fn get_bytes(path: &Path, usage_flag: bool) -> u64 {
 fn color_from_path<'a>(path: &Path, color_dict: &'a HashMap<String, String>) -> Option<&'a str> {
     if try_is_symlink(path) {
         let path_link = path.read_link();
-        if path_link.is_ok() {
-            if path_link.unwrap().exists() {
+        if let Ok(p) = path_link {
+            if p.exists() {
                 if let Some(col) = color_dict.get(&"ln".to_string()) {
                     return Some(&col);
                 }
@@ -619,11 +619,11 @@ fn color_from_path<'a>(path: &Path, color_dict: &'a HashMap<String, String>) -> 
         }
     }
     let metadata = path.symlink_metadata();
-    if metadata.is_ok() {
+    if let Ok(meta) = metadata {
         #[cfg(target_os = "linux")]
-        let mode = metadata.unwrap().st_mode();
+        let mode = meta.st_mode();
         #[cfg(target_os = "macos")]
-        let mode = metadata.unwrap().mode();
+        let mode = meta.mode();
         if path.is_dir() {
             if mode & 0o002 != 0 {
                 // dir other writable
